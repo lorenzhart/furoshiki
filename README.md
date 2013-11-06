@@ -9,3 +9,6 @@ git branchで今いるブランチの確認。
 変更を反映するには、
 	gitadd .
 	git commit -m "変更内容"
+	
+	Githubに送るには、
+	git push origin change_readme
