@@ -1,11 +1,29 @@
 #header {
 	height: 50px;
-
+	background:red;
 }
 
-.movie {
-	height: 250px;
+.pickup {
+	height: 200px;
+	background:yellow;
 }
+
+.campane1 .movie img{
+	width: 100%;
+	height:40%;
+}
+
+.campane2 {
+	height: 200px;
+}
+
+.campane2 .movie img{
+	width: 100%;
+	height:40%;
+}
+
+
+
 
 #footer {
 	height: 250px;
