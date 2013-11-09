@@ -1,0 +1,29 @@
+body {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+}
+
+#cursor {
+	width: 30px;
+	height: 30px;
+	background-color: #0000FF;
+}
+
+.clickable {
+}
+
+.movie {
+	width: 200px;
+	height: 200px;
+	float: left;
+	margin-left: 10px;		
+}
+
+.onCursor {
+	background-color: #00FF00;
+}
+
+.offCursor {
+	background-color: #AAAAAA;
+}
