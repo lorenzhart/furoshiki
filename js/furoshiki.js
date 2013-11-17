@@ -35,7 +35,7 @@ $(function() {
 			var handY = frame.hands[0].stabilizedPalmPosition[1];
 			var handZ = frame.hands[0].stabilizedPalmPosition[2];
 			//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
-			var handPosition = [handX * 8 + centerX, bodyHeight - handY * 4, handZ];
+			var handPosition = [handX * 6 + centerX, bodyHeight - handY * 3, handZ];
 			
 			drawHandCursor(handPosition[0], handPosition[1], handPosition[2]);
 			
@@ -57,7 +57,7 @@ $(function() {
 		var y = frame.fingers[0].tipPosition[1];
 		var z = frame.fingers[0].tipPosition[2];
 		//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
-		var pos = [x * 8 + centerX, bodyHeight - y * 4, z];
+		var pos = [x * 6 + centerX, bodyHeight - y * 3, z];
 
 		//カーソルの座標にある.clickable要素を探す
 		//毎フレーム総当りで探索していると重いので半分に間引き
@@ -93,7 +93,7 @@ $(function() {
 		}
 
 		//カーソルを描画
-		drawCursor(pos[0], pos[1], pos[2]);
+		drawCursor(pos[0], pos[1]);
 		lastPosition = pos;
 	});
 
@@ -120,28 +120,27 @@ $(function() {
 	}
 
 	//カーソルを描画
-	function drawCursor(x, y, z){
-		z = 30;
+	function drawCursor(x, y){
+		radius = 30;
 		var canvas = $("#cursor-canvas")[0];
 		var context = canvas.getContext("2d");
 		context.globalAlpha = 0.7;
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		context.beginPath();
 		context.fillStyle = 'rgb(192, 80, 77)';
-		context.arc(x, y, z, 0, Math.PI * 2, false);
+		context.arc(x, y, radius, 0, Math.PI * 2, false);
 		context.fill();
 	}
 
 	//スクロール時のカーソルを描画
 	function drawHandCursor(x, y, z){
-		z = 50 - z/3 > 50 ? 50 : 50 - z/3;
+		zoom = z > 0 ? 100 + z/2 : 100;
 		var canvas = $("#cursor-canvas")[0];
 		var context = canvas.getContext("2d");
 		context.globalAlpha = 0.7;
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		context.beginPath();
-		context.fillStyle = 'rgb(77, 80, 192)';
-		context.arc(x, y, z, 0, Math.PI * 2, false);
-		context.fill();
+		var handImage = new Image();
+		handImage.src = "img/hand.png";
+		context.drawImage(handImage, x, y, 300 * zoom/100, 300 * zoom/100);
 	}
 });
