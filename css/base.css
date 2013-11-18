@@ -1,7 +1,13 @@
+ @font-face
+{
+font-family: mplus-1p-regular;
+src: url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-light.ttf')
+     format("truetype");
+}
+
 .movie {
-	width: 200px;
 	height: 200px;
-	background-color: #3e79bb;
+	/*background-color: #3e79bb;*/
 }
 
 .sidebar-nav-fixed {
@@ -9,3 +15,7 @@
      /*top:60px;
      width:21.97%;*/
  }
+
+* {
+font-family: mplus-1p-light;
+}
