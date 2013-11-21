@@ -37,11 +37,12 @@ $(function() {
 			//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
 			var handPosition = [handX * 6 + centerX, bodyHeight - handY * 3, handZ];
 			
+			//手のひらカーソルを描画
 			drawHandCursor(handPosition[0], handPosition[1], handPosition[2]);
 			
-			//手を奥に突き出したときスクロール
+			//手を奥に突き出したときだけスクロール
 			if(handPosition[2] < 0){
-				posDelta = [handPosition[0] - lastPosition[0], handPosition[1] - lastPosition[1]];
+				var posDelta = [handPosition[0] - lastPosition[0], handPosition[1] - lastPosition[1]];
 
 				body = $("body");
 				body.scrollLeft(body.scrollLeft() - posDelta[0]);
@@ -83,12 +84,10 @@ $(function() {
 
 		//keyTapジェスチャで選択
 		if(frame.gestures.length > 0){
-			if(frame.gestures[0].type == 'keyTap'){
-				if(lastClickableElement){
-					var selectedElement = lastClickableElement;
-					selectedElement.addClass("selected");
-					setTimeout(function(){ selectedElement.removeClass("selected"); }, 1000);
-				}
+			if(frame.gestures[0].type == 'keyTap' && lastClickableElement){	
+				var selectedElement = lastClickableElement;
+				selectedElement.addClass("selected");
+				setTimeout(function(){ selectedElement.removeClass("selected"); }, 1000);
 			}
 		}
 
