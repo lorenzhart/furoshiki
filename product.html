@@ -7,6 +7,8 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
+    <script src="http://js.leapmotion.com/0.2.0/leap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -65,12 +67,13 @@
                 <span class="label label-primary">旧作100円</span>
                 <span class="label label-warning">人気作</span>
                 <span class="label label-danger"><span class="glyphicon glyphicon-bookmark"></span>アカデミー賞受賞作</span>
-
-                <iframe src="http://player.vimeo.com/video/34699752?title=0&amp;byline=0&amp;portrait=0" width="853" height="480" frameborder="0" style="margin-top:5%;" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/34699752">The Girl with the Dragon Tattoo Opening Titles</a> from <a href="http://vimeo.com/onursenturk">Onur Senturk</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+                <div class="clickable">
+                  <a href="#" id="movie"></a>
+                  <iframe id="movieplayer" src="http://player.vimeo.com/video/34699752?title=0&byline=0&portrait=0&api=1&player_id=movieplayer" width="853" height="480" frameborder="0" style="margin-top:5%;" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/34699752">The Girl with the Dragon Tattoo Opening Titles</a> from <a href="http://vimeo.com/onursenturk">Onur Senturk</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+                </div>
                 <button type="button" class="btn btn-success btn-lg" style="height:100px;"><span class="glyphicon glyphicon-shopping-cart"></span>この映画をレンタルする</button>
                 <p style="margin:3% 0">記者ミカエルは闇の大物実業家の武器密売をスクープし、名誉毀損で訴えられ裁判で敗訴し全財産を失う。失意のミカエルに、別の大物実業家から電話がかかってくる。一族の謎を解明して欲しいとの依頼で、見返りに裁判判決を逆転させるような証拠を渡すという。謎とは、40年前に行方不明になった16歳の少女のことであり、一族の誰かに殺されたという。
                 依頼を引き受けたミカエルは、猟奇連続殺人に関わる一族の秘密を知ることになる。ミカエルはミカエルに好意を持ったドラゴンの刺青をしたフリーの天才ハッカーであるリスベットとともに捜査を進めすべての謎と事件を解決していく。</p>
-
                 <div class="row">
                  <div class="col-sm-4 col-md-4">
                     <div class="thumbnail">
@@ -164,24 +167,30 @@
     </div><!-- .container -->
     <!-- ==============================================
          JavaScript below!                              -->
-    <!-- jQuery via Google + local fallback, see h5bp.com -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\/script>')</script>
     <!-- Bootstrap JS: compiled and minified -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Example plugin: Prettify -->
-    <script src="js/prettify/prettify.js"></script>
-    <!-- Initialize Scripts -->
-    <script>
-          // Activate Google Prettify in this page
-          addEventListener('load', prettyPrint, false);
-        
-          $(document).ready(function(){
-    
-            // Add prettyprint class to pre elements
-              $('pre').addClass('prettyprint');
-                    
-          }); // end document.ready
-        </script>
+
+     <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+     <script>
+        $(function(){
+          $f('movieplayer').addEvent('ready', ready);
+
+          function ready(player_id){
+            var ancor = $("a#movie");
+            ancor.on('click', function(){
+              $f('movieplayer').api('play');
+            });
+          }
+        });
+        //
+        //console.log("yeah");
+        //ancor.on('click', function(){
+        //    console.log('play');
+        //    playMovie();
+        //    $('#movieplayer')[0].click();
+        //    document.getElementById('movieplayer').api("api_play");
+        //});
+     </script>
+    <script src="js/furoshiki.js"></script>
   </body>
 </html>
