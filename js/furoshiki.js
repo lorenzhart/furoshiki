@@ -14,7 +14,7 @@ $(function() {
 	var canvas = $("<canvas id='cursor-canvas'/>").css({"position": "fixed",
 													"left": 0,
 													"top": 0, 
-													"z-index": 1,}).appendTo("body");
+													"z-index": 1000,}).appendTo("body");
 	canvas.attr({height:$(window).height()});
 	canvas.attr({width:$(window).width()});
 
@@ -35,7 +35,7 @@ $(function() {
 			var handY = frame.hands[0].stabilizedPalmPosition[1];
 			var handZ = frame.hands[0].stabilizedPalmPosition[2];
 			//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
-			var handPosition = [handX * 6 + centerX, bodyHeight - handY * 4, handZ];
+			var handPosition = [handX * 6 + centerX, bodyHeight - handY * 3, handZ];
 			
 			drawHandCursor(handPosition[0], handPosition[1], handPosition[2]);
 			
@@ -57,7 +57,7 @@ $(function() {
 		var y = frame.fingers[0].tipPosition[1];
 		var z = frame.fingers[0].tipPosition[2];
 		//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
-		var pos = [x * 6 + centerX, bodyHeight - y * 4, z];
+		var pos = [x * 6 + centerX, bodyHeight - y * 3, z];
 
 		//カーソルの座標にある.clickable要素を探す
 		//毎フレーム総当りで探索していると重いので半分に間引き

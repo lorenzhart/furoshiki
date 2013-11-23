@@ -12,7 +12,7 @@ src: url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-light.ttf')
 	/*background-color: #3e79bb;*/
 }
 
-.movie.onCursor {
+.movie.onCursor, .thumbnail.onCursor, .onCursor .btn, .onCursor.menu {
 	background-color: #FFFF00;
 }
 
