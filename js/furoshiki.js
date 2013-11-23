@@ -14,7 +14,7 @@ $(function() {
 	var canvas = $("<canvas id='cursor-canvas'/>").css({"position": "fixed",
 													"left": 0,
 													"top": 0, 
-													"z-index": 1,}).appendTo("#frame");
+													"z-index": 1,}).appendTo("body");
 	canvas.attr({height:$(window).height()});
 	canvas.attr({width:$(window).width()});
 
@@ -35,7 +35,7 @@ $(function() {
 			var handY = frame.hands[0].stabilizedPalmPosition[1];
 			var handZ = frame.hands[0].stabilizedPalmPosition[2];
 			//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
-			var handPosition = [handX * 6 + centerX, bodyHeight - handY * 3, handZ];
+			var handPosition = [handX * 6 + centerX, bodyHeight - handY * 4, handZ];
 			
 			drawHandCursor(handPosition[0], handPosition[1], handPosition[2]);
 			
@@ -57,7 +57,7 @@ $(function() {
 		var y = frame.fingers[0].tipPosition[1];
 		var z = frame.fingers[0].tipPosition[2];
 		//ディスプレイの左上を原点とした座標に変換(＆ディスプレイ全体に動かせるように調整)
-		var pos = [x * 6 + centerX, bodyHeight - y * 3, z];
+		var pos = [x * 6 + centerX, bodyHeight - y * 4, z];
 
 		//カーソルの座標にある.clickable要素を探す
 		//毎フレーム総当りで探索していると重いので半分に間引き
@@ -71,24 +71,24 @@ $(function() {
 		//カーソルの乗った／外れたdivのクラスを変更
 		if(element != lastClickableElement){
 			if(lastClickableElement){
-				lastClickableElement.removeClass("onCursor").addClass("offCursor");
+				lastClickableElement.removeClass("onCursor");
 			}
 
 			if(element){
-				element.removeClass("offCursor").addClass("onCursor");
+				element.addClass("onCursor");
 			}
 
 			lastClickableElement = element;
 		}
 
 		//keyTapジェスチャで選択
-		if(frame.gestures.length > 0){
-			if(frame.gestures[0].type == 'keyTap'){
-				if(lastClickableElement){
-					var selectedElement = lastClickableElement;
-					selectedElement.addClass("selected");
-					setTimeout(function(){ selectedElement.removeClass("selected"); }, 1000);
-				}
+		if(frame.gestures.length > 0 && frame.gestures[0].type == 'keyTap'){
+			if(lastClickableElement){
+				var selectedElement = lastClickableElement;
+				var a = selectedElement.find('a');
+				a[0].click();
+				//selectedElement.addClass("selected");
+				//setTimeout(function(){ selectedElement.removeClass("selected"); }, 1000);
 			}
 		}
 
@@ -121,7 +121,7 @@ $(function() {
 
 	//カーソルを描画
 	function drawCursor(x, y){
-		radius = 30;
+		radius = 15;
 		var canvas = $("#cursor-canvas")[0];
 		var context = canvas.getContext("2d");
 		context.globalAlpha = 0.7;
@@ -132,6 +132,9 @@ $(function() {
 		context.fill();
 	}
 
+	var handImage = new Image();
+	handImage.src = "img/hand.png";
+
 	//スクロール時のカーソルを描画
 	function drawHandCursor(x, y, z){
 		zoom = z > 0 ? 100 + z/2 : 100;
@@ -139,8 +142,6 @@ $(function() {
 		var context = canvas.getContext("2d");
 		context.globalAlpha = 0.7;
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		var handImage = new Image();
-		handImage.src = "img/hand.png";
 		context.drawImage(handImage, x, y, 300 * zoom/100, 300 * zoom/100);
 	}
 });
